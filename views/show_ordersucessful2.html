@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  
+	<meta charset="utf-8">
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Russo One">
+  
+
+  <link rel="stylesheet" href="webapp/assets/css/styles.css">
+ 
+  <title>VOLURYA - Official Website</title>
+  
+  <meta name="description" content="VOLURYA is a brazillian 4-piece progressive metal band with strong hardcore/trash/groove/brazillian music influencies." />
+  
+  <meta property="og:url" content="http://VOLURYA-Metal.com" />
+  
+  <meta property="og:title" content="VOLURYA-Metal.com" />
+  
+  <meta property="og:description" content="VOLURYA is a brazillian 4-piece progressive metal band with strong hardcore/trash/groove/brazillian music influencies." />
+  
+  <meta property="og:type" content="website" />
+
+  <meta property="og:image" content="imagens/volurya1.jpg" />
+
+  <link rel="canonical" href="http://VOLURYA-metal.com">
+
+  <link rel="shortcut icon" href="imagens/android-chrome-192x192.png" type="image/x-icon" />
+
+  <meta name="msapplication-TileColor" content="#000000">
+
+  <meta name="msapplication-TileImage" content="imagens/android-chrome-192x192.png">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    .fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 70px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+     }
+  
+    .fa:hover {
+    opacity: 0.5;
+     }
+  
+    .fa-facebook {
+    background: transparent;
+    color: white;
+    }
+  
+    .fa-youtube {
+    background: transparent;
+    color: white;
+    }
+  
+    .fa-instagram {
+    background: transparent;
+    color: white;
+    }
+  
+    .fa-spotify {
+    background: transparent;
+    color: white;
+    }
+  
+  </style>
+
+</head>
+
+<body class="text-center">
+
+          <!--imagem da banda-->
+  
+  <div class="bg-dark">
+
+    <div>
+
+      <a  href="#" ><img src="imagens\VOLURYALOGOVAZADA.png" width="25%">
+      </a>
+
+    </div>
+
+<section class="breadcrumb-section pb-3 pt-3">
+	<div class="container">
+		
+	</div>
+</section>
+<section class="product-page pb-4 pt-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 mb-4">
+				<div class="section-title">
+					<h2>Payment</h2>
+				</div>
+			</div>
+		</div>
+		
+		<div class="alert alert-success">
+			THANKS !!! ORDER SUCCESFULLY PROCESSED !!!<br/>
+			
+		</div>
+		{{ end }}
+		<div class="row">
+			<div class="col-lg-8">
+				<!-- Details -->
+				<div class="card mb-4">
+					<div class="card-body">
+						<div class="mb-3 d-flex justify-content-between">
+							<div>
+								<span class="me-3">Order Code</span>
+								<span class="me-3">#{{ .order.Code }}</span>
+								<span class="badge rounded-pill bg-info">{{ .order.GetStatusLabel }}</span>
+							</div>
+						</div>
+						<table class="table table-borderless">
+							<tbody>
+							{{ range $i, $item := .order.OrderItems }}
+							<tr>
+								<td>
+									<div class="d-flex mb-2">
+										<div class="flex-shrink-0">
+											<img src="https://placehold.jp/40x50.png" class="img-fluid"/>
+										</div>
+										<div class="flex-lg-grow-1 ms-3 pl-2">
+											<h6 class="small mb-0"><a href="/products/{{ $item.Product.Slug }}"
+																	  class="text-reset">{{ $item.Product.Name }}</a>
+											</h6>
+										</div>
+									</div>
+								</td>
+								<td>{{ $item.Qty }}</td>
+								<td class="text-end">{{ $item.SubTotal }}</td>
+							</tr>
+							{{ end }}
+							</tbody>
+							<tfoot>
+							<tr>
+								<td colspan="2">Subtotal</td>
+								<td class="text-end">{{ .order.BaseTotalPrice }}</td>
+							</tr>
+							<tr>
+								<td colspan="2">Shipping</td>
+								<td class="text-end">{{ .order.ShippingCost }}</td>
+							</tr>
+							<tr>
+								<td colspan="2">Discount ({{ .order.DiscountPercent }}%)</td>
+								<td class="text-danger text-end">-{{ .order.DiscountAmount }}</td>
+							</tr>
+							<tr class="fw-bold">
+								<td colspan="2">TOTAL</td>
+								<td class="text-end">{{ .order.GrandTotal }}</td>
+							</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+				<!-- Payment -->
+				<div class="card mb-4">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<h3 class="h6">Payment Method</h3>
+								{{ if .order.IsPaid }}
+								<p>Visa -1234 <br>
+									Total: $169,98 <span class="badge bg-success rounded-pill">PAID</span>
+								</p>
+								{{ else }}
+								<a href="{{ .order.PaymentToken.String }}" target="_blank">
+									<button class="btn btn-primary">Pay Now</button>
+								</a>
+								{{ end }}
+							</div>
+							<div class="col-lg-6">
+								<h3 class="h6">Billing address</h3>
+								<address>
+									<strong>{{ .order.User.FirstName }} {{ .order.User.LastName }}</strong><br>
+									<abbr title="Phone">Email:</abbr> {{ .order.User.Email }}
+								</address>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- Customer Notes -->
+				<div class="card mb-4">
+					<div class="card-body">
+						<h3 class="h6">Customer Notes</h3>
+						<p>{{ .order.Note }}</p>
+					</div>
+				</div>
+				<div class="card mb-4">
+					<!-- Shipping information -->
+					<div class="card-body">
+						<h3 class="h6">Shipping Information</h3>
+						<strong>{{ .order.ShippingCourier }}</strong>
+						<span>{{ .order.ShippingServiceName }}</span>
+						<hr>
+						<h3 class="h6">Address</h3>
+						<address>
+							<strong>{{ .order.OrderCustomer.FirstName }} {{ .order.OrderCustomer.LastName
+								}}</strong><br>
+							{{ .order.OrderCustomer.Address1 }}<br>
+							{{ .order.OrderCustomer.Address2 }}<br>
+							<abbr title="Phone">Phone:</abbr> {{ .order.OrderCustomer.Phone }}
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{{ end }}
+
+
+      <div class="bg-dark" id="socialsection">
+
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-instagram"></a>
+        <a href="#" class="fa fa-youtube"></a>
+        <a href="#" class="fa fa-spotify"></a>
+
+      </div>
+
+</body>
+
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
